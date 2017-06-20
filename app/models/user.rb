@@ -3,4 +3,9 @@ class User < ApplicationRecord
   has_many :orders, foreign_key: "buyer_id"
   has_many :items_bought, class_name:"Item", through: :orders, source: :items
   has_many :items_sold, class_name:"Item", foreign_key: "seller_id"
+
+  validates :name, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
+
 end
