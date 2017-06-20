@@ -1,0 +1,9 @@
+<h1>Reviews for all items that you bought</h1>
+
+<ul>
+  <% @reviews.each do |r| %>
+    <li><%= link_to(r.item.name, review_path(r)) %></li>
+  <% end %>
+</ul>
+
+<%= link_to("Add Review", new_review_path) %>
