@@ -1,0 +1,22 @@
+<h1>New Order</h1>
+
+<% @items.each do |item| %>
+  <p>
+    <%= item.name %>
+    <%= item.price %>
+  </p>
+<% end %>
+<p><%= display_cart_total %></p>
+
+<%#= form_for @order do |f| %>
+  <%#= f.label :street_address %>
+  <%#= f.text_field :street_address %>
+  <%#= f.label :zip_code%>
+  <%#= f.text_field :zip_code %>
+  <%#= f.label :city %>
+  <%#= f.text_field :city %>
+  <%#= f.label :state %>
+  <%#= f.text_field :state %>
+<%# end %>
+
+<%= link_to "Complete Order", orders_path, method: :post %>

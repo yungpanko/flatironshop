@@ -3,7 +3,11 @@
 <% end %>
 
 <% @items.each do |item| %>
-  <%= item.name %>
-  <%= item.price %>
-  <%= link_to("Remove Item", remove_from_cart_path(item), method: :delete) %>
+  <p>
+    <%= item.name %>
+    <%= item.price %>
+    <%= link_to("Remove Item", remove_from_cart_path(item), method: :delete) %>
+  </p>
 <% end %>
+<p><%= display_cart_total %></p>
+<%= link_to "Checkout", new_order_path %>

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :items
   resources :reviews
   resources :categories
+  resources :orders
   post '/items/:id/add_to_cart'=> 'cart#add_to_cart', as: :add_to_cart
   get '/cart' => 'cart#show', as: :cart
   delete '/items/:id/remove_from_cart' => 'cart#remove', as: :remove_from_cart
