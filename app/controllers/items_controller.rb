@@ -4,9 +4,9 @@ class ItemsController < ApplicationController
 
   def index
     if current_user == nil
-      @items = Item.all
+      @items = Item.unsold
     else
-      @items = Item.where.not("seller_id = ?", current_user.id)
+      @items = Item.unsold.where.not("seller_id = ?", current_user.id)
     end
 
   end

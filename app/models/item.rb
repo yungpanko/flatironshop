@@ -8,4 +8,8 @@ class Item < ApplicationRecord
   def self.conditions
     ["Brand New", "Like New", "Very Good", "Good", "Acceptable"]
   end
+
+  def self.unsold
+    Item.where("order_id IS NULL")
+  end
 end
