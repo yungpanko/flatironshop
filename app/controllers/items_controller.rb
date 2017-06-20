@@ -1,8 +1,14 @@
 class ItemsController < ApplicationController
+  before_action :require_login, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    @items = Item.all
+    if current_user == nil
+      @items = Item.all
+    else
+      @items = Item.where.not("seller_id = ?", current_user.id)
+    end
+
   end
 
   def show
@@ -14,6 +20,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
+    @item.seller_id = current_user.id
     if @item.valid?
       @item.save
       redirect_to item_path(@item)

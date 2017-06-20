@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_user
+  helper_method :current_user, :current_cart  
+
+  def current_cart
+    session[:cart] ||= []
+  end
 
   def current_user
     @user ||= User.find(session[:user_id]) if session[:user_id]
@@ -11,6 +15,12 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    redirect_to root_path unless logged_in?
+    session[:return_to] = request.url
+    redirect_to login_path unless logged_in?
+  end
+
+  def redirect_back_or_default(default_path)
+    redirect_to(session[:return_to] || default_path)
+    session[:return_to] = nil
   end
 end

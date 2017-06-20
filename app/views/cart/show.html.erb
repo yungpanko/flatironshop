@@ -1,0 +1,9 @@
+<% if current_cart.empty? %>
+  <p>Your cart is currently empty.</p>
+<% end %>
+
+<% @items.each do |item| %>
+  <%= item.name %>
+  <%= item.price %>
+  <%= link_to("Remove Item", remove_from_cart_path(item), method: :delete) %>
+<% end %>

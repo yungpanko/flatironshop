@@ -9,7 +9,5 @@
   <%= f.select(:condition, Item.conditions) %><br>
   <%= f.label :category %><br>
   <%= f.collection_select(:category_id, Category.all, :id, :name) %><br>
-  <%= f.label :seller_id %><br>
-  <%= f.collection_select(:seller_id, User.all, :id, :name) %><br>
   <%= f.submit %>
 <% end %>

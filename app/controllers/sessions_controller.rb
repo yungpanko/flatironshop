@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  before_action :require_login, only: [:show]
 
   def index
   end
@@ -12,8 +11,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(name: params[:user][:name])
     if @user && @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
-      redirect_to user_path(@user)
-      #may want to redirect_to index page instead (where all products are)
+      redirect_back_or_default(items_path)
     else
       @user = User.new
       flash.now[:error] = "Login unsuccessful. Please try again"

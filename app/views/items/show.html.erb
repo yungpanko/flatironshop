@@ -2,3 +2,5 @@
 <p> <%= @item.description %> </p>
 <p> <%= @item.price %> </p>
 <p> Sold By: <%= @item.seller.name %> </p>
+
+<%= link_to("Add to Cart", add_to_cart_path, method: :post) %>

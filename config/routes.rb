@@ -1,12 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :items
-
-
-  resources :reviews
-  resources :categories
-  root "sessions#index"
+  root "items#index"
   get "/login" => "sessions#new", as: :login
   post "/login" => "sessions#create", as: :sessions
   get "/users/new" => "users#new", as: :signup
@@ -16,5 +11,11 @@ Rails.application.routes.draw do
   put "/users/:id" => "users#update"
   patch "/users/:id" => "users#update"
   delete "/logout" => "sessions#destroy"
+  resources :items
+  resources :reviews
+  resources :categories
+  post '/items/:id/add_to_cart'=> 'cart#add_to_cart', as: :add_to_cart
+  get '/cart' => 'cart#show', as: :cart
+  delete '/items/:id/remove_from_cart' => 'cart#remove', as: :remove_from_cart
 
 end
