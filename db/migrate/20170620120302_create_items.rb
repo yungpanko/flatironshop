@@ -3,6 +3,9 @@ class CreateItems < ActiveRecord::Migration[5.1]
     create_table :items do |t|
       t.string :name
       t.string :description
+      t.float :price
+      t.string :condition
+      t.references :category
       t.integer :seller_id, foreign_key:true
       t.integer :order_id, foreign_key:true
 
