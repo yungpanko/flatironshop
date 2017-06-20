@@ -1,0 +1,12 @@
+<h1>Edit User</h1>
+<%= form_for(@user) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <%= f.label :password %>
+  <%= f.text_field :password %>
+  <%= f.label :admin %>
+  <%= f.check_box :admin %>
+  <%= f.submit %>
+<% end %>
