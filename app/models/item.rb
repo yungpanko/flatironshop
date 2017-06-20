@@ -4,4 +4,8 @@ class Item < ApplicationRecord
   has_one :buyer, class_name:"User", foreign_key:"buyer_id", through: :order
   has_one :review
   belongs_to :category
+
+  def self.conditions
+    ["Brand New", "Like New", "Very Good", "Good", "Acceptable"]
+  end
 end
