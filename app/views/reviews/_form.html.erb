@@ -1,0 +1,14 @@
+<%= form_for @review do |f| %>
+  <%= f.label :content %><br><br>
+  <%= f.text_area :content %><br><br>
+
+  <%= f.label :rating %><br><br>
+  <%= f.text_field :rating %><br><br>
+
+  <%= f.label :item %>
+  <%= f.collection_select(:item_id, Item.all, :id, :name) %><br><br>
+
+  <%= f.submit %><br><br>
+<% end %>
+
+<%= link_to("Cancel", reviews_path) %>

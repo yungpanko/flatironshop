@@ -1,0 +1,10 @@
+<h1>This is your review for: <%= @review.item.name %></h1>
+
+<p>Content: <%= @review.content %></p>
+<p>Rating: <%= @review.rating %></p>
+<p>Seller: <%= @review.item.seller.name %></p>
+<p>Date purchased: <%= @review.item.order.created_at %></p>
+
+<%= link_to("Edit", edit_review_path) %><br><br>
+<%= link_to("Back", reviews_path) %><br><br>
+<%= link_to("Delete", @review, method: :delete) %><br><br>
