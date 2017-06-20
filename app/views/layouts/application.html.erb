@@ -35,7 +35,9 @@
 
                 <ul class="nav navbar-nav navbar-right">
                   <li>
-                    <%= link_to("View Cart", cart_path) %>
+                    <%= link_to(cart_path) do %>
+                      Cart <span class="badge"><%= current_cart.count %></span>
+                    <% end %>
                   </li>
                   <li>
                     <% if current_user %>
