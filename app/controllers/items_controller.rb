@@ -3,13 +3,21 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    if current_user == nil
-      @items = Item.unsold
+    if params[:category_id]
+      @items = current_user.nil? ? Item.unsold.where(:category_id => params[:category_id]) : Item.unsold.where(:category_id => params[:category_id]).where.not("seller_id = ?", current_user.id)
     else
-      @items = Item.unsold.where.not("seller_id = ?", current_user.id)
+      @items = current_user.nil? ? Item.unsold : Item.unsold.where.not("seller_id = ?", current_user.id)
     end
-
   end
+
+  # def index
+  #   if current_user == nil
+  #     @items = Item.unsold
+  #   else
+  #     @items = Item.unsold.where.not("seller_id = ?", current_user.id)
+  #   end
+  #
+  # end
 
   def show
   end
@@ -25,6 +33,9 @@ class ItemsController < ApplicationController
       @item.save
       redirect_to item_path(@item)
     else
+      @item.errors.full_messages.each do |error|
+        flash.now[error] = error
+      end
       render :new
     end
   end
