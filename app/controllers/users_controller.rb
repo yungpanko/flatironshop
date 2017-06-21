@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @reviews = current_user.reviews
   end
 
   def edit
@@ -27,7 +28,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.update(params[:id],user_params)
+    @user = User.find(params[:id])
+    @user = User.update(user_params)
+    # byebug
     redirect_to user_path(@user)
     #may want to redirect_to index page instead (where all products are)
   end
@@ -35,7 +38,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :admin)
+    params.require(:user).permit(:name, :email, :password, :admin, :bio)
   end
 
 end

@@ -1,12 +1,16 @@
+<h1> <%= @item.name %> </h1>
+<%= image_tag(@item.item_pic_url) if @item.item_pic? %>
+<p> <%= @item.description %> </p>
+<p> <%= @item.price %> </p>
+<p> Sold By: <%= @item.seller.name %> </p><br><br>
+
+
 <%= form_for @review do |f| %>
-  <%= f.label :content %><br><br>
+  <%= f.label :content, "Write a comment" %><br><br>
   <%= f.text_area :content %><br><br>
 
-  <%= f.label :rating %><br><br>
+  <%= f.label :rating, "Give a rating (1-5)" %><br><br>
   <%= f.text_field :rating %><br><br>
-
-  <%= f.label :item %>
-  <%= f.collection_select(:item_id, Item.all, :id, :name) %><br><br>
 
   <%= f.submit %><br><br>
 <% end %>

@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :require_login
 
   def index
-    @orders = Order.all
+    @orders = current_user.orders
   end
 
   def show

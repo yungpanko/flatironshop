@@ -1,25 +1,36 @@
 class ReviewsController < ApplicationController
   # before_action :authenticate
-  before_action :set_review, only: [:show, :edit, :update, :delete]
+  before_action :set_review, only: [:show, :edit, :update, :destroy]
 
   def index
-    @reviews = Review.all
+    @reviews = []
+    current_user.orders.each do |order|
+      order.items.each do |item|
+        @reviews << item.review if item.review
+      end
+    end
   end
 
   def new
     @review = Review.new
+    session[:item_id] = params[:item_id]
+    @item = Item.find(session[:item_id])
   end
 
   def create
+    @item = Item.find(session[:item_id])
     review = Review.new(review_params)
+    review.item_id = session[:item_id]
     if review.save
-      redirect_to reviews_path
+      flash[:thanks] = "Your review has been submitted!"
+      redirect_to orders_path
     else
       render 'new'
     end
   end
 
   def show
+    # byebug
   end
 
   def edit
@@ -30,7 +41,7 @@ class ReviewsController < ApplicationController
     redirect_to review_path(@review)
   end
 
-  def delete
+  def destroy
     @review.destroy
     redirect_to reviews_path
   end
@@ -39,10 +50,11 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:content, :rating, :item_id)
+    params.require(:review).permit(:content, :rating)
   end
 
   def set_review
     @review = Review.find(params[:id])
   end
+
 end

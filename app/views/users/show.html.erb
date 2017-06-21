@@ -1,5 +1,22 @@
-<h1>User Homepage</h1>
-<p>Name: <%= @user.name %></p>
+<h1><%= current_user.name %>'s Profile Page</h1>
+
+<p>Profile Picture</p>
+
+<% if @reviews.average(:rating) %>
+  <h2>Averge Rating: <%= @reviews.average(:rating) %></h2>
+  <p><%= @reviews.count %> reviews(s)</p>
+<% end %>
+
+<h3>Bio</h3>
+  <p><%= current_user.bio %></p>
+
+<h2>All Reviews</h2>
+<% @reviews.each do |review| %>
+  <h4>"<%= review.content %>", <%= review.rating %> stars</h4>
+  <p>Reviewed by <%= review.item.order.buyer.name %> for <%= review.item.name %></p>
+  <br><br>
+<% end %>
+
 <br>
 <%= link_to "Edit Your Profile", edit_user_path(@user)%>
 <br>
