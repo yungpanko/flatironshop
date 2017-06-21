@@ -1,18 +1,35 @@
 <h1>My Orders</h1>
 
 
-  <% @orders.each do |order| %>
-      <h4>Order from <%= order.created_at %></h4>
-        <p><% order.items.each do |item| %>
-        <p><%= image_tag(item.item_pic_url) if item.item_pic? %></p>
-            <%= item.name %>
-              <% if item.review == nil %>
-              <%= link_to("Create Review", new_review_path(:item_id => item.id), method: :get, class:"btn btn-default") %>
+<% @orders.each do |order| %>
+  <h4>Order from <%= order.created_at %></h4>
+    <% order.items.each do |item| %>
+      <div class="col-md-9">
+        <div class="row">
+          <!-- Item -->
+          <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+              <% if item.item_pic? %>
+                <%= link_to image_tag(item.item_pic_url), item_path(item) %>
               <% else %>
-              <span style="color:green">Reviewed!</span> <span class="glyphicon glyphicon-ok"></span>
+                <%= link_to image_tag('placeholder.png'), item_path(item) %>
               <% end %>
-        <% end %></p>
-        <br><br>
-  <% end %>
+              <div class="caption">
+                <h4 class="pull-right"><% if item.review == nil %>
+                  <%= link_to("Create Review", new_review_path(:item_id => item.id), method: :get, class:"btn btn-default") %>
+                  <% else %>
+                  <span style="color:green">Reviewed!</span> <span class="glyphicon glyphicon-ok"></span>
+                  <% end %>
+                </h4>
+                <p> <%= item.description %> </p>
+              </div>
+            </div>
+          </div>
+          <!-- Item -->
+          <% end %>
+        </div>
+      </div>
+    <% end %>
 
-  <%= link_to("See all your reviews", reviews_path) %>
+
+<%= link_to("See all your reviews", reviews_path) %>
