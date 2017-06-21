@@ -25,12 +25,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <%= link_to("Sell", new_item_path) %>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
+                  <li>
+                    <% if current_user %>
+                    <%= link_to("Hello, #{current_user.name}", user_path(current_user)) %>
+                    <% end %>
+                  </li>
+                  <li>
+                      <%= link_to("Sell", new_item_path) %>
+                  </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
