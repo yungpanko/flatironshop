@@ -1,6 +1,6 @@
 <h1> <%= @item.name %> </h1>
+<%= image_tag(@item.item_pic_url) if @item.item_pic? %>
 <p> <%= @item.description %> </p>
 <p> <%= @item.price %> </p>
 <p> Sold By: <%= @item.seller.name %> </p>
-
 <%= link_to("Add to Cart", add_to_cart_path, method: :post) %>

@@ -1,5 +1,7 @@
 <h1>Items</h1>
-
 <% @items.each do |item| %>
-  <%= link_to item.name, item_path(item) %><br>
+  <div><%= link_to image_tag(item.item_pic_url), item_path(item) if item.item_pic? %>
+    <br>
+    <%= link_to item.name, item_path(item) %></div>
+  <br>
 <% end %>
