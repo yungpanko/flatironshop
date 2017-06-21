@@ -32,6 +32,7 @@
             </li>
           </ul>
 
+
           <ul class="nav navbar-nav navbar-right">
             <li>
               <%= link_to(cart_path) do %>
@@ -48,6 +49,7 @@
               </ul>
             </li>
             <% end %>
+            <li><%= link_to("My Account", user_path(current_user)) if current_user %></li>
             <li>
               <% if current_user %>
               <%= link_to("Logout", logout_path, method: :delete) %>
