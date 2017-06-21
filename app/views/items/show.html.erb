@@ -1,6 +1,14 @@
 <h1> <%= @item.name %> </h1>
-<%= image_tag(@item.item_pic_url) if @item.item_pic? %>
+<% if @item.item_pic? %>
+  <%= link_to image_tag(@item.item_pic_url), item_path(@item) %>
+<% else %>
+  <%= link_to image_tag('placeholder.png'), item_path(@item) %>
+<% end %>
 <p> <%= @item.description %> </p>
 <p> <%= @item.price %> </p>
-<p> Sold By: <%= @item.seller.name %> </p>
-<%= link_to("Add to Cart", add_to_cart_path, method: :post) %>
+<p> Sold By: <%= link_to @item.seller.name, user_path(@item.seller), method: :get %> </p>
+<% if @item.order_id.nil? %>
+  <%= link_to("Add to Cart", add_to_cart_path, method: :post) %>
+<% else %>
+  <%= "This item is no longer available" %>
+<% end %>
