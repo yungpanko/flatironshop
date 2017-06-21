@@ -2,11 +2,11 @@
 
 
 <% @orders.each do |order| %>
-  <h4>Order from <%= order.created_at %></h4>
-    <% order.items.each do |item| %>
       <div class="col-md-9">
         <div class="row">
-          <!-- Item -->
+          <h4>Order from <%= order.created_at %></h4>
+          <% order.items.each do |item| %>
+            <!-- Item -->
           <div class="col-sm-4 col-lg-4 col-md-4">
             <div class="thumbnail">
               <% if item.item_pic? %>
@@ -27,9 +27,9 @@
           </div>
           <!-- Item -->
           <% end %>
+          <% end %>
         </div>
       </div>
-    <% end %>
 
 
-<%= link_to("See all your reviews", reviews_path) %>
+<div><%= link_to("See all your reviews", reviews_path) %></div>
