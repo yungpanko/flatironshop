@@ -1,22 +1,26 @@
 <h1><%= @user.name %>'s Profile Page</h1>
-
 <p>Profile Picture</p>
-
+<% if @user.avatar? %>
+  <%= image_tag(@user.avatar_url) %>
+<% else %>
+  <%= image_tag('default_avatar.png') %>
+<% end %>
 <% if @reviews.average(:rating) %>
   <h2>Averge Rating: <%= @reviews.average(:rating) %></h2>
   <p><%= @reviews.count %> reviews(s)</p>
 <% end %>
-
 <h3>Bio</h3>
-  <p><%= @user.bio %></p>
-
+<p><%= @user.bio %></p>
+<br>
+<h3><%= link_to "Items for sale", items_path(:seller_id => @user.id) %></h3>
+<br>
 <h2>All Reviews</h2>
 <% @reviews.each do |review| %>
   <h4>"<%= review.content %>", <%= review.rating %> stars</h4>
   <p>Reviewed by <%= review.item.order.buyer.name %> for <%= review.item.name %></p>
-  <br><br>
+  <br>
+  <br>
 <% end %>
-
 <% if current_user == @user %>
   <br>
   <%= link_to "Edit Your Profile", edit_user_path(@user)%>
