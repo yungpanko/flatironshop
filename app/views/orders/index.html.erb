@@ -2,21 +2,17 @@
 
 
   <% @orders.each do |order| %>
-    <ul>
-      <li>Order from <%= order.created_at %>
-        <% order.items.each do |item| %>
-          <ul>
-            <li><%= image_tag(item.item_pic_url) if item.item_pic? %> </li>
-            <li><%= item.name %></li>
-          </ul>
-          <% if item.review == nil %>
-            <%= link_to("Review", new_review_path(:item_id => item.id), method: :get) %>
-          <% else %>
-            Reviewed! <span class="glyphicon glyphicon-ok"></span>
-          <% end %>
-        <% end %>
-      </li>
-    </ul>
+      <h4>Order from <%= order.created_at %></h4>
+        <p><% order.items.each do |item| %>
+        <p><%= image_tag(item.item_pic_url) if item.item_pic? %></p>
+            <%= item.name %>
+              <% if item.review == nil %>
+              <%= link_to("Create Review", new_review_path(:item_id => item.id), method: :get, class:"btn btn-default") %>
+              <% else %>
+              <span style="color:green">Reviewed!</span> <span class="glyphicon glyphicon-ok"></span>
+              <% end %>
+        <% end %></p>
+        <br><br>
   <% end %>
 
-  <%= link_to("View all your reviews", reviews_path) %>
+  <%= link_to("See all your reviews", reviews_path) %>

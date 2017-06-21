@@ -2,13 +2,31 @@
 <% if @reviews.empty? %>
   You have not submitted any reviews yet.
 <% else %>
-  <h1>Reviews for all items that you bought</h1>
 
-  <ul>
-    <% @reviews.each do |review| %>
-    <li><%= link_to(review.item.name, review_path(review)) %></li>
-    <% end %>
-  </ul>
+  <div class="rating">
+
+    <h1>Reviews for all items that you bought</h1>
+
+      <% @reviews.each do |review| %>
+
+      <% review.rating.round.times do %>
+        <span class="glyphicon glyphicon-star"></span>
+      <% end %>
+
+      <% (5 - review.rating.round).times do %>
+        <span class="glyphicon glyphicon-star-empty"></span>
+      <% end %>
+
+      "<%= review.content %>"
+
+      <p>For <%= link_to(review.item.name, item_path(review.item)) %> sold by <%= link_to(review.item.seller.name, user_path(review.item.seller)) %></p>
+
+      <%= link_to("Edit", edit_review_path(:id => review.id)) %>
+      <%= link_to("Delete", review, method: :delete) %>
+
+      <br><br>
+  </div>
+
+  <% end %>
+
 <% end %>
-
-<%= link_to("Add a review", orders_path) %>

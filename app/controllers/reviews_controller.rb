@@ -39,7 +39,7 @@ class ReviewsController < ApplicationController
 
   def update
     @review.update(review_params)
-    redirect_to review_path(@review)
+    redirect_to reviews_path
   end
 
   def destroy
