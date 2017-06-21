@@ -6,5 +6,10 @@
   <%= f.text_field :email %>
   <%= f.label :password %>
   <%= f.text_field :password %>
+  <br>
+  <%= image_tag(@user.avatar_url) if @user.avatar? %>
+  <%= f.label :avatar, "Upload Picture" %><br>
+  <%= f.file_field :avatar %><br>
+  <br>
   <%= f.submit %>
 <% end %>

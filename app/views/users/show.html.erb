@@ -1,7 +1,10 @@
- <h1><%= @user.name %></h1>
-
+<h1><%= @user.name %></h1>
 <p>Profile Picture</p>
-
+<% if @user.avatar? %>
+  <%= image_tag(@user.avatar_url) %>
+<% else %>
+  <%= image_tag('default_avatar.png') %>
+<% end %>
 <% if @reviews.average(:rating) %>
   <div class="ratings">
     <p>
@@ -17,11 +20,13 @@
   <p><%= @reviews.count %> <%= @reviews.count > 1 ? "reviews" : "review" %></p>
 <% end %>
 
-
 <h3>Bio</h3>
-  <p><%= @user.bio %></p>
-
+<p><%= @user.bio %></p>
+<br>
+<h3><%= link_to "Items for sale", items_path(:seller_id => @user.id) %></h3>
+<br>
 <h2>All Reviews</h2>
+
 
   <div class="ratings">
   <% @reviews.each do |review| %>
@@ -39,7 +44,6 @@
     </div>
 
 <% end %>
-
 <% if current_user == @user %>
   <br>
   <%= link_to "Edit Your Profile", edit_user_path(@user), class:'btn btn-primary' %>

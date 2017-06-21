@@ -7,8 +7,12 @@
 <p> <%= @item.description %> </p>
 <p> <%= @item.price %> </p>
 <p> Sold By: <%= link_to @item.seller.name, user_path(@item.seller), method: :get %> </p>
-<% if @item.order_id.nil? %>
-  <%= link_to("Add to Cart", add_to_cart_path, method: :post) %>
+<% if @item.seller_id == current_user.id %>
+  <%= link_to "Edit Item", edit_item_path(@item) %>
 <% else %>
-  <%= "This item is no longer available" %>
+  <% if @item.order_id.nil? %>
+    <%= link_to("Add to Cart", add_to_cart_path, method: :post) %>
+  <% else %>
+    <%= "This item is no longer available" %>
+  <% end %>
 <% end %>
