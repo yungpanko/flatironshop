@@ -9,5 +9,10 @@
   <%= f.select(:condition, Item.conditions) %><br>
   <%= f.label :category %><br>
   <%= f.collection_select(:category_id, Category.all, :id, :name) %><br>
+  <br>
+  <%= image_tag(@item.item_pic_url) if @item.item_pic? %>
+  <%= f.label :item_pic, "Upload Picture" %><br>
+  <%= f.file_field :item_pic %><br>
+  <%= f.hidden_field :item_pic_cache %>
   <%= f.submit %>
 <% end %>
