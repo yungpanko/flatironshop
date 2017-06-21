@@ -1,21 +1,49 @@
+
 <% if current_cart.empty? %>
   <p>Your cart is currently empty.</p>
 <% end %>
 <% @items.each do |item| %>
-  <p>
-    <% if item.item_pic? %>
-      <%= link_to image_tag(item.item_pic_url), item_path(item) %>
-    <% else %>
-      <%= link_to image_tag('placeholder.png'), item_path(item) %>
-    <% end %>
-    <br>
-    <%= item.name %>
-    <%= item.price %>
-    <%= link_to("Remove Item", remove_from_cart_path(item), method: :delete) %>
-    <% unless item.order_id.nil? %>
-      <%= "This item is no longer available. Please remove it from your cart." %>
-    <% end %>
-  </p>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="col-xs-3">
+            <div class="media">
+              <div class="media-left">
+                <% if item.item_pic? %>
+                <%= link_to image_tag(item.item_pic_url, class:"img-responsive", style:"max-height:60px"), item_path(item) %>
+                <% else %>
+                <%= link_to image_tag('placeholder.png', class:"img-responsive", style:"max-height:60px"), item_path(item) %>
+                <% end %>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div style="margin-top:18px">
+              <%= link_to item.name, item_path(item) %>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div style="margin-top:18px">
+              <%= number_to_currency(item.price, :precision => 2) %>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <%= link_to("Remove", remove_from_cart_path(item), method: :delete, class:'btn btn-danger', style:'margin-top:12px') %>
+            <% unless item.order_id.nil? %>
+            <%= "This item is no longer available. Please remove it from your cart." %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div> <!-- column -->
+  </div> <!--row-->
 <% end %>
-<p><%= display_cart_total %></p>
-<%= link_to("Checkout", new_order_path) if !current_cart.empty? %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <p><%= display_cart_total %></p>
+    <%= link_to("Checkout", new_order_path, class:'btn btn-primary') if !current_cart.empty? %>
+    <%= link_to("Canel", items_path, class:'btn btn-danger') if !current_cart.empty? %>
+  </div>
+</div>
