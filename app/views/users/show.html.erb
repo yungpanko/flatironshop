@@ -1,20 +1,45 @@
-<h1><%= @user.name %>'s Profile Page</h1>
+ <h1><%= @user.name %>'s Profile Page</h1>
 
 <p>Profile Picture</p>
 
 <% if @reviews.average(:rating) %>
-  <h2>Averge Rating: <%= @reviews.average(:rating) %></h2>
+  <h2>Average Rating: <%= @reviews.average(:rating) %></h2>
   <p><%= @reviews.count %> reviews(s)</p>
+
+  <div class="ratings">
+    <p>
+      <% @reviews.average(:rating).round.times do %>
+        <span class="glyphicon glyphicon-star"></span>
+      <% end %>
+      <% (5 - @reviews.average(:rating).round).times do %>
+        <span class="glyphicon glyphicon-star-empty"></span>
+      <% end %>
+    </p>
+  </div>
+
 <% end %>
+
 
 <h3>Bio</h3>
   <p><%= @user.bio %></p>
 
 <h2>All Reviews</h2>
-<% @reviews.each do |review| %>
-  <h4>"<%= review.content %>", <%= review.rating %> stars</h4>
-  <p>Reviewed by <%= review.item.order.buyer.name %> for <%= review.item.name %></p>
-  <br><br>
+
+  <div class="ratings">
+  <% @reviews.each do |review| %>
+    <h4>
+      <% review.rating.round.times do %>
+        <span class="glyphicon glyphicon-star"></span>
+      <% end %>
+      <% (5 - review.rating.round).times do %>
+        <span class="glyphicon glyphicon-star-empty"></span>
+      <% end %>
+
+      "<%= review.content %>"
+    </h4>
+      <p>Reviewed by <%= review.item.order.buyer.name %> for <%= review.item.name %></p>
+    </div>
+
 <% end %>
 
 <% if current_user == @user %>
