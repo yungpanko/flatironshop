@@ -1,4 +1,4 @@
-<h1><%= current_user.name %>'s Profile Page</h1>
+<h1><%= @user.name %>'s Profile Page</h1>
 
 <p>Profile Picture</p>
 
@@ -8,7 +8,7 @@
 <% end %>
 
 <h3>Bio</h3>
-  <p><%= current_user.bio %></p>
+  <p><%= @user.bio %></p>
 
 <h2>All Reviews</h2>
 <% @reviews.each do |review| %>
@@ -17,8 +17,9 @@
   <br><br>
 <% end %>
 
-<br>
-<%= link_to "Edit Your Profile", edit_user_path(@user)%>
-<br>
-<%= link_to "Log Out", logout_path, method: "delete" %>
-
+<% if current_user == @user %>
+  <br>
+  <%= link_to "Edit Your Profile", edit_user_path(@user)%>
+  <br>
+  <%= link_to "Log Out", logout_path, method: "delete" %>
+<% end %>

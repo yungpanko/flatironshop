@@ -22,7 +22,7 @@ class ReviewsController < ApplicationController
     review = Review.new(review_params)
     review.item_id = session[:item_id]
     if review.save
-      flash[:thanks] = "Your review has been submitted!"
+      flash[:info] = "Your review has been submitted!"
       redirect_to orders_path
     else
       render 'new'
@@ -34,6 +34,7 @@ class ReviewsController < ApplicationController
   end
 
   def edit
+    @item = @review.item
   end
 
   def update
