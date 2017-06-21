@@ -1,18 +1,35 @@
-<h1> <%= @item.name %> </h1>
-<% if @item.item_pic? %>
-  <%= link_to image_tag(@item.item_pic_url), item_path(@item) %>
-<% else %>
-  <%= link_to image_tag('placeholder.png'), item_path(@item) %>
-<% end %>
-<p> <%= @item.description %> </p>
-<p> <%= @item.price %> </p>
-<p> Sold By: <%= link_to @item.seller.name, user_path(@item.seller), method: :get %> </p>
-<% if @item.seller_id == current_user.try(:id) %>
-  <%= link_to "Edit Item", edit_item_path(@item) %>
-<% else %>
-  <% if @item.order_id.nil? %>
-    <%= link_to("Add to Cart", add_to_cart_path, method: :post) %>
-  <% else %>
-    <%= "This item is no longer available" %>
-  <% end %>
-<% end %>
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+    <div class="thumbnail">
+      <% if @item.item_pic? %>
+        <%= link_to image_tag(@item.item_pic_url), item_path(@item) %>
+      <% else %>
+        <%= link_to image_tag('placeholder.png'), item_path(@item) %>
+      <% end %>
+      <div class="caption">
+        <h4 class="pull-right"><%= number_to_currency(@item.price, :precision => 2) %></h4>
+        <h4>
+          <%= @item.name %>
+        </h4>
+        <p>
+          <%= @item.description %>
+        </p>
+        <p>
+          Sold By:
+          <%= link_to @item.seller.name, user_path(@item.seller), method: :get %>
+        </p>
+        <div class="clearfix">
+          <% if @item.seller_id == current_user.try(:id) %>
+            <%= link_to "Edit Item", edit_item_path(@item), class:"btn btn-primary pull-right" %>
+          <% else %>
+            <% if @item.order_id.nil? %>
+              <%= link_to("Add to Cart", add_to_cart_path, method: :post, class:"btn btn-primary pull-right") %>
+            <% else %>
+              <%= "This item is no longer available" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
