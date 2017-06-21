@@ -17,8 +17,9 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to items_path
     else
+      flash.now[:danger] = []
       @user.errors.full_messages.each do |error|
-        flash.now[error] = error
+        flash.now[:danger] << error
       end
       render :new
     end
