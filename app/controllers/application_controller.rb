@@ -25,4 +25,5 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default_path)
     session[:return_to] = nil
   end
+
 end

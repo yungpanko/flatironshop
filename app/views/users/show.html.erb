@@ -1,6 +1,8 @@
 <h1>User Homepage</h1>
 <p>Name: <%= @user.name %></p>
-<br>
-<%= link_to "Edit Your Profile", edit_user_path(@user)%>
-<br>
-<%= link_to "Log Out", logout_path, method: "delete" %>
+<% if current_user == @user %>
+  <br>
+  <%= link_to "Edit Your Profile", edit_user_path(@user)%>
+  <br>
+  <%= link_to "Log Out", logout_path, method: "delete" %>
+<% end %>
