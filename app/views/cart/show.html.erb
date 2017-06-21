@@ -11,4 +11,4 @@
   </p>
 <% end %>
 <p><%= display_cart_total %></p>
-<%= link_to "Checkout", new_order_path %>
+<%= link_to("Checkout", new_order_path) if !current_cart.empty? %>
