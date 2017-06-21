@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_user, :current_cart  
+  helper_method :current_user, :current_cart
+  require 'carrierwave/orm/activerecord'
+
 
   def current_cart
     session[:cart] ||= []

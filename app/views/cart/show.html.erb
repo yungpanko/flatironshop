@@ -1,9 +1,10 @@
 <% if current_cart.empty? %>
   <p>Your cart is currently empty.</p>
 <% end %>
-
 <% @items.each do |item| %>
   <p>
+    <%= link_to image_tag(item.item_pic_url), item_path(item) if item.item_pic? %>
+    <br>
     <%= item.name %>
     <%= item.price %>
     <%= link_to("Remove Item", remove_from_cart_path(item), method: :delete) %>
