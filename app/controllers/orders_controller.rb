@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :require_login
 
   def index
-    @orders = Order.all
+    @orders = current_user.orders
   end
 
   def show
@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
       session[:cart] = []
       redirect_to order_path(@order)
     else
-      flash[:notice] = @order.errors.full_messages.first
+      flash[:danger] = @order.errors.full_messages.first
       render :new
     end
   end

@@ -14,14 +14,16 @@ class SessionsController < ApplicationController
       redirect_back_or_default(items_path)
     else
       @user = User.new
-      flash.now[:error] = "Login unsuccessful. Please try again"
+      flash.now[:danger] = "Login unsuccessful. Please try again"
       render :new
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path, notice: "You have successfully logged out."
+    session[:return_to] = nil
+    flash[:info] = "You have successfully logged out."
+    redirect_to root_path
   end
 
 

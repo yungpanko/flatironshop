@@ -3,11 +3,18 @@
 <% end %>
 <% @items.each do |item| %>
   <p>
-    <%= link_to image_tag(item.item_pic_url), item_path(item) if item.item_pic? %>
+    <% if item.item_pic? %>
+      <%= link_to image_tag(item.item_pic_url), item_path(item) %>
+    <% else %>
+      <%= link_to image_tag('placeholder.png'), item_path(item) %>
+    <% end %>
     <br>
     <%= item.name %>
     <%= item.price %>
     <%= link_to("Remove Item", remove_from_cart_path(item), method: :delete) %>
+    <% unless item.order_id.nil? %>
+      <%= "This item is no longer available. Please remove it from your cart." %>
+    <% end %>
   </p>
 <% end %>
 <p><%= display_cart_total %></p>

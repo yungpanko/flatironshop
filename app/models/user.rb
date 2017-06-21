@@ -13,4 +13,8 @@ class User < ApplicationRecord
     reviews.average(:rating).to_f
   end
 
+  def listed_items
+    self.items_sold.where("order_id IS NULL")
+  end
+
 end

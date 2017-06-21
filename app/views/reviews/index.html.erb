@@ -1,9 +1,14 @@
-<h1>Reviews for all items that you bought</h1>
 
-<ul>
-  <% @reviews.each do |r| %>
-    <li><%= link_to(r.item.name, review_path(r)) %></li>
-  <% end %>
-</ul>
+<% if @reviews.empty? %>
+  You have not submitted any reviews yet.
+<% else %>
+  <h1>Reviews for all items that you bought</h1>
 
-<%= link_to("Add Review", new_review_path) %>
+  <ul>
+    <% @reviews.each do |review| %>
+    <li><%= link_to(review.item.name, review_path(review)) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to("Add a review", orders_path) %>
