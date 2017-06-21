@@ -7,7 +7,7 @@
 <p> <%= @item.description %> </p>
 <p> <%= @item.price %> </p>
 <p> Sold By: <%= link_to @item.seller.name, user_path(@item.seller), method: :get %> </p>
-<% if @item.seller_id == current_user.id %>
+<% if @item.seller_id == current_user.try(:id) %>
   <%= link_to "Edit Item", edit_item_path(@item) %>
 <% else %>
   <% if @item.order_id.nil? %>

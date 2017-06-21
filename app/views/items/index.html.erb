@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-md-3">
     <div class="list-group">
-      <%= link_to "All Items", items_path, class:'list-group-item' %>
+      <%= link_to "All Items", items_path, class:"list-group-item #{'active' if params[:category_id].nil?}" %>
       <% Category.all.order(:name).each do |category| %>
-        <%= link_to category.name.capitalize, items_path(category_id: category.id), class:'list-group-item' %>
+       <%= category_link(category) %>
       <% end %>
     </div>
   </div>
