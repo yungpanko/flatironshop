@@ -2,7 +2,8 @@
 
 
 <% @orders.each do |order| %>
-  <h4>Order from <%= order.created_at %></h4>
+  <h4>Order from <%= (order.created_at.to_date).strftime("%b %d, %Y")%></h4>
+    <p>(<%= order.items.count %> <%= order.items.count > 1 ? "items" : "item" %>)</p>
     <% order.items.each do |item| %>
       <div class="col-md-9">
         <div class="row">
