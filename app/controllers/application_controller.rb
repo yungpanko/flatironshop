@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
   def logged_in?
@@ -19,6 +19,13 @@ class ApplicationController < ActionController::Base
   def require_login
     session[:return_to] = request.url
     redirect_to login_path unless logged_in?
+  end
+
+  def require_admin
+    unless current_user.try(:admin)
+      flash[:danger] = "You must be an admin for that action."
+      redirect_to root_path
+    end
   end
 
   def redirect_back_or_default(default_path)
