@@ -8,7 +8,9 @@
   <%= f.text_field :password %><br><br>
   <%= f.label :bio %>
   <%= f.text_area :bio %><br><br>
-  <%= f.label :admin %>
-  <%= f.check_box :admin %><br><br>
+  <% if current_user.admin %>
+    <%= f.label :admin %>
+    <%= f.check_box :admin %>
+  <% end %>
   <%= f.submit %>
 <% end %>

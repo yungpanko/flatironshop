@@ -3,7 +3,7 @@ class CartController < ApplicationController
   def add_to_cart
     @item = Item.find(params[:id])
     if session[:cart].include?(@item.id)
-      flash[:notice] = "This item has already been added to your cart."
+      flash[:info] = "This item has already been added to your cart."
       redirect_to item_path(@item)
     else
       session[:cart] << @item.id

@@ -6,6 +6,11 @@ class Item < ApplicationRecord
   belongs_to :category
   mount_uploader :item_pic, ItemPicUploader
 
+  validates :name, presence: true
+  validates :description, presence: true
+  validates :condition, presence: true
+  validates :category, presence: true
+  validates :price, :presence => true, :format => { :with => /\A(\$)?(\d+)(\.|,)?\d{0,2}?\z/ }
 
   def self.conditions
     ["Brand New", "Like New", "Very Good", "Good", "Acceptable"]
