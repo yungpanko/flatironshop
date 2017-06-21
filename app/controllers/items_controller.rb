@@ -4,11 +4,13 @@ class ItemsController < ApplicationController
 
   def index
     if params[:category_id]
-      @items = current_user.nil? ? Item.unsold.where(:category_id => params[:category_id]) : Item.unsold.where(:category_id => params[:category_id]).where.not("seller_id = ?", current_user.id)
+      # @items = current_user.nil? ? Item.unsold.where(:category_id => params[:category_id]) : Item.unsold.where(:category_id => params[:category_id]).where.not("seller_id = ?", current_user.id)
+      @items = Item.unsold.where(:category_id => params[:category_id])
     elsif params[:seller_id]
       @items = Item.unsold.where(:seller_id => params[:seller_id])
     else
-      @items = current_user.nil? ? Item.unsold : Item.unsold.where.not("seller_id = ?", current_user.id)
+      # @items = current_user.nil? ? Item.unsold : Item.unsold.where.not("seller_id = ?", current_user.id)
+      @items = Item.unsold
     end
   end
 
