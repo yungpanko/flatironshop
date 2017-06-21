@@ -1,19 +1,35 @@
-<h1><%= link_to "All Items", items_path %></h1>
-<h2> Find Items by Category </h2>
-<div>
-  <%= link_to "Clothing", items_path(:category_id => 1) %>
-  <%= link_to "Books", items_path(:category_id => 2) %>
-  <%= link_to "Electronics", items_path(:category_id => 3) %>
+<div class="row">
+  <div class="col-md-3">
+    <div class="list-group">
+      <%= link_to "All Items", items_path, class:'list-group-item' %>
+      <% Category.all.order(:name).each do |category| %>
+        <%= link_to category.name.capitalize, items_path(category_id: category.id), class:'list-group-item' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <div class="row">
+      <% @items.each do |item| %>
+      <!-- Item -->
+      <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="thumbnail">
+          <% if item.item_pic? %>
+            <%= link_to image_tag(item.item_pic_url), item_path(item) %>
+          <% else %>
+            <%= link_to image_tag('placeholder.png'), item_path(item) %>
+          <% end %>
+          <div class="caption">
+            <h4 class="pull-right"><%= number_to_currency(item.price, :precision => 2) %></h4>
+            <h4>
+              <%= link_to item.name, item_path(item) %>
+            </h4>
+            <p> <%= item.description %> </p>
+          </div>
+        </div>
+      </div>
+      <!-- Item -->
+      <% end %>
+    </div>
+  </div>
 </div>
-<br>
-<% @items.each do |item| %>
-  <div>
-    <% if item.item_pic? %>
-      <%= link_to image_tag(item.item_pic_url), item_path(item) %>
-    <% else %>
-      <%= link_to image_tag('placeholder.png'), item_path(item) %>
-    <% end %>
-    <br>
-    <%= link_to item.name, item_path(item) %></div>
-  <br>
-<% end %>
