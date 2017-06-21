@@ -9,4 +9,7 @@ module ApplicationHelper
     "Total: $#{cart_total}" if cart_total
   end
 
+  def category_link(category)
+    link_to category.name.capitalize, items_path(category_id: category.id), class:"list-group-item #{params[:category_id].to_i == category.id ? 'active' : ''}"
+  end
 end
