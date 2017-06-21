@@ -1,7 +1,8 @@
 users = [
   {name:"Pat", email:"pat@pat.com", password:"pat" },
   {name:"Jared", email:"jared@jared.com", password:"jared" },
-  {name:"Quynh", email:"quynh@quynh.com", password:"quynh" }
+  {name:"Quynh", email:"quynh@quynh.com", password:"quynh" },
+  {name:"admin", email:"admin@admin.com", password:"admin", admin:true}
 ]
 
 User.create(users)

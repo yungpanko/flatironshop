@@ -21,6 +21,13 @@ class ApplicationController < ActionController::Base
     redirect_to login_path unless logged_in?
   end
 
+  def require_admin
+    unless current_user.try(:admin)
+      flash[:danger] = "You must be an admin for that action."
+      redirect_to root_path
+    end
+  end
+
   def redirect_back_or_default(default_path)
     redirect_to(session[:return_to] || default_path)
     session[:return_to] = nil

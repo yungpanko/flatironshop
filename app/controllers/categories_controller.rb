@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   # before_action :authenticate
-  before_action :set_category, only: [:show, :edit, :update, :delete]
+  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin
 
   def index
     @categories = Category.all
@@ -30,7 +31,7 @@ class CategoriesController < ApplicationController
     redirect_to category_path(@category)
   end
 
-  def delete
+  def destroy
     @category.destroy
     redirect_to categories_path
   end

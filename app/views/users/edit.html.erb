@@ -6,7 +6,9 @@
   <%= f.text_field :email %>
   <%= f.label :password %>
   <%= f.text_field :password %>
-  <%= f.label :admin %>
-  <%= f.check_box :admin %>
+  <% if current_user.admin %>
+    <%= f.label :admin %>
+    <%= f.check_box :admin %>
+  <% end %>
   <%= f.submit %>
 <% end %>
