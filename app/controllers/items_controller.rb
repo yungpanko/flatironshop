@@ -10,9 +10,14 @@ class ItemsController < ApplicationController
       @items = Item.unsold.where(:seller_id => params[:seller_id])
     else
       # @items = current_user.nil? ? Item.unsold : Item.unsold.where.not("seller_id = ?", current_user.id)
-      @items = Item.unsold
+      @items = []
+      Item.unsold.each do |item|
+        @items << item unless current_cart.include?(item.id)
+      end
+
+      # @items = Item.unsold
     end
-    @items = @items.page(params[:page])
+    @items = Kaminari.paginate_array(@items).page(params[:page])
   end
 
   # def index
