@@ -17,7 +17,11 @@ class ItemsController < ApplicationController
 
       # @items = Item.unsold
     end
-    @items = Kaminari.paginate_array(@items).page(params[:page])
+    if @items.class == Array
+      @items = Kaminari.paginate_array(@items).page(params[:page]).per(3)
+    else
+      @items = @items.page(params[:page])
+    end
   end
 
   # def index

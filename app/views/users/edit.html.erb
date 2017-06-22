@@ -12,7 +12,11 @@
   <%= f.label :bio %>
   <%= f.text_area :bio %><br>
   <br>
-  <%= image_tag(@user.avatar_url) if @user.avatar? %>
+  <div class="col-md-3">
+    <div class="thumbnail">
+      <%= image_tag(@user.avatar_url) if @user.avatar? %>
+    </div>
+  </div>
   <%= f.label :avatar, "Upload Picture" %><br>
   <%= f.file_field :avatar %><br>
   <br>
