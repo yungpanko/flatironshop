@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :require_login, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :item_creator_or_admin, only: [:edit, :update, :destroy]
 
   def index
     if params[:category_id]
@@ -79,5 +80,12 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find_by(id: params[:id])
+  end
+
+  def item_creator_or_admin
+    unless current_user == @item.seller || current_user.try(:admin)
+      flash[:danger] = "You do not have permission to perform that action."
+      redirect_to root_path
+    end
   end
 end
