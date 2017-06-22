@@ -3,32 +3,38 @@
     <div class="list-group">
       <%= link_to "All Items", items_path, class:"list-group-item #{'active' if params[:category_id].nil?}" %>
       <% Category.all.order(:name).each do |category| %>
-       <%= category_link(category) %>
+        <%= category_link(category) %>
       <% end %>
     </div>
   </div>
-
   <div class="col-md-9">
     <div class="row">
+      <% count = 0 %>
       <% @items.each do |item| %>
-      <!-- Item -->
-      <div class="col-sm-4 col-lg-4 col-md-4">
-        <div class="thumbnail">
-          <% if item.item_pic? %>
-            <%= link_to image_tag(item.item_pic_url), item_path(item) %>
-          <% else %>
-            <%= link_to image_tag('placeholder.png'), item_path(item) %>
-          <% end %>
-          <div class="caption">
-            <h4 class="pull-right"><%= number_to_currency(item.price, :precision => 2) %></h4>
-            <h4>
-              <%= link_to item.name, item_path(item) %>
-            </h4>
-            <p> <%= item.description %> </p>
+        <% count += 1 %>
+        <!-- Item -->
+        <div class="col-sm-4 col-lg-4 col-md-4">
+          <div class="thumbnail">
+            <% if item.item_pic? %>
+              <%= link_to image_tag(item.item_pic_url), item_path(item) %>
+            <% else %>
+              <%= link_to image_tag('placeholder.png'), item_path(item) %>
+            <% end %>
+            <div class="caption">
+              <h4 class="pull-right"><%= number_to_currency(item.price, :precision => 2) %></h4>
+              <h4>
+                <%= link_to item.name, item_path(item) %>
+              </h4>
+              <p> <%= item.description %> </p>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- Item -->
+        <!-- Item -->
+        <% if count % 3 == 0 %>
+          <div class="clearfix">
+            <!-- clearfix cols every 3 -->
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
