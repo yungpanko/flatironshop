@@ -75,7 +75,8 @@
       <!-- flash messages -->
       <% flash.each do |name, message| %>
       <div class="alert alert-<%= name %>">
-        <%= message %>
+        <%= message.class == String ? message : safe_join(message, "<br>".html_safe) %>
+        <%=  %>
       </div>
       <% end %>
       <!-- end flash messages -->
