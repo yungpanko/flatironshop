@@ -6,6 +6,7 @@
         <h4>Order from <%= (order.created_at.to_date).strftime("%b %d, %Y")%></h4>
         (<%= order.items.count %> <%= order.items.count > 1 ? "items" : "item" %>)
         <div class="row">
+          <% counter = 0 %>
           <% order.items.each do |item| %>
           <div class="col-sm-4 col-lg-4 col-md-4">
             <div class="thumbnail">
@@ -25,6 +26,8 @@
               </div>
             </div>
           </div>
+          <% counter += 1 %>
+          <div <%= "class=clearfix" if counter % 3 == 0 %> ></div>
           <% end %>
         </div>
       </div>

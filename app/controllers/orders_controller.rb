@@ -31,15 +31,17 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if @order.items.count < 1
-      return flash[:danger] << "Your cart is currently empty."
-    end
 
     @order = Order.new()
     @order.buyer_id = current_user.id
     current_cart.each do |item_id|
       @order.items << Item.find(item_id)
     end
+    # byebug
+    if @order.items.size < 1
+      return flash[:danger] = "Your cart is currently empty."
+    end
+
     if @order.valid?
       @order.save
       session[:cart] = []

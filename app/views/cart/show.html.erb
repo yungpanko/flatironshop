@@ -45,7 +45,7 @@
     <div class="pull-right">
       <h3><%= display_cart_total %></h3>
       <%= link_to("Checkout", new_order_path, class:'btn btn-primary') if !current_cart.empty? %>
-      <%= link_to("Canel", items_path, class:'btn btn-danger') if !current_cart.empty? %>
+      <%= link_to("Continue Shopping", items_path, class:'btn btn-primary') if !current_cart.empty? %>
     </div>
   </div>
 </div>
