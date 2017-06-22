@@ -42,7 +42,7 @@
 <% end %>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <p><%= display_cart_total %></p>
+    <h3><%= display_cart_total %></h3>
     <%= link_to("Checkout", new_order_path, class:'btn btn-primary') if !current_cart.empty? %>
     <%= link_to("Canel", items_path, class:'btn btn-danger') if !current_cart.empty? %>
   </div>
