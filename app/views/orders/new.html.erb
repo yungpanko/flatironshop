@@ -1,27 +1,51 @@
-<% if !@items.empty? %>
-  <h1>New Order</h1>
-  <% @items.each do |item| %>
-    <p>
-      <% if item.item_pic? %>
-        <%= link_to image_tag(item.item_pic_url), item_path(item) %>
-      <% else %>
-        <%= link_to image_tag('placeholder.png'), item_path(item) %>
-      <% end %>
-      <br>
-      <%= item.name %>
-      <%= item.price %>
-    </p>
-  <% end %>
-  <p><%= display_cart_total %></p>
-  <%= link_to "Complete Order", orders_path, method: :post %>
+<% if @items.empty? %>
+  <%= link_to("Continue Shopping", items_path, class:"btn btn-primary") %>
+<% else %>
+
+  <div class="container">
+    <h2>New Order</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Item</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |item| %>
+          <tr>
+            <td>
+              <% if item.item_pic? %>
+              <%= link_to image_tag(item.item_pic_url, class:"img-responsive center-block", style:"max-height:60px"), item_path(item) %>
+              <% else %>
+              <%= link_to image_tag('placeholder.png', class:"img-responsive center-block", style:"max-height:60px"), item_path(item) %>
+              <% end %>
+            </td>
+            <td><%= item.name %></td>
+            <td><%= number_to_currency(item.price, :precision => 2) %></td>
+          </tr>
+        <% end %>
+          <tr>
+            <td></td>
+            <td><span class="pull-right">Total</span></td>
+            <td><%= display_cart_total %></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3>New Order</h3>
+        </div>
+        <div class="panel-body">
+          <%= render 'form' %>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
-<%#= form_for @order do |f| %>
-  <%#= f.label :street_address %>
-  <%#= f.text_field :street_address %>
-  <%#= f.label :zip_code%>
-  <%#= f.text_field :zip_code %>
-  <%#= f.label :city %>
-  <%#= f.text_field :city %>
-  <%#= f.label :state %>
-  <%#= f.text_field :state %>
-  <%# end %>
