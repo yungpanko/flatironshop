@@ -4,7 +4,9 @@ class ItemsController < ApplicationController
   before_action :item_creator_or_admin, only: [:edit, :update, :destroy]
 
   def index
-    if params[:category_id]
+    if params[:category_id] && params[:seller_id] && params[:seller_id] != "0"
+      @items = Item.unsold.where(:category_id => params[:category_id]).where(:seller_id => params[:seller_id])
+    elsif params[:category_id]
       # @items = current_user.nil? ? Item.unsold.where(:category_id => params[:category_id]) : Item.unsold.where(:category_id => params[:category_id]).where.not("seller_id = ?", current_user.id)
       @items = Item.unsold.where(:category_id => params[:category_id])
     elsif params[:seller_id]
