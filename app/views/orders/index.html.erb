@@ -4,7 +4,6 @@
     <div class="row">
       <div class="col-md-9">
         <h4>Order from <%= (order.created_at.to_date).strftime("%b %d, %Y")%></h4>
-        (<%= order.items.count %> <%= order.items.count > 1 ? "items" : "item" %>)
         <div class="row">
           <% counter = 0 %>
           <% order.items.each do |item| %>
@@ -17,12 +16,16 @@
               <% end %>
               <div class="caption">
                 <h4 class="pull-right"><% if item.review == nil %>
-                  <%= link_to("Create Review", new_review_path(:item_id => item.id), method: :get, class:"btn btn-default") %>
+                  <%= link_to("Create Review", new_review_path(:item_id => item.id), method: :get, class:"btn btn-primary") %>
                   <% else %>
                   <span style="color:green">Reviewed!</span> <span class="glyphicon glyphicon-ok"></span>
                   <% end %>
                 </h4>
-                <p> <%= item.description %> </p>
+                <p>
+                  <%= link_to item.name, item_path(item) %>
+                </p>
+
+                <div class="clearfix"></div>
               </div>
             </div>
           </div>

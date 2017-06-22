@@ -1,18 +1,31 @@
-<h1> <%= @item.name %> </h1>
+
+<h3> <%= @item.name %> </h3>
 <%= image_tag(@item.item_pic_url) if @item.item_pic? %>
 <p> <%= @item.description %> </p>
 <p> <%= @item.price %> </p>
-<p> Sold By: <%= @item.seller.name %> </p><br><br>
+<p> Sold By: <%= link_to @item.seller.name, user_path(@item.seller) %> </p>
 
+<hr>
 
 <%= form_for @review do |f| %>
-  <%= f.label :content, "Write a comment" %><br><br>
-  <%= f.text_area :content %><br><br>
-
-  <%= f.label :rating, "Give a rating (1-5)" %><br><br>
-  <%= f.text_field :rating %><br><br>
-
-  <%= f.submit %><br><br>
+  <div class="fomr-group">
+    <%= f.label :content, "Write a comment" %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-12" >
+        <%= f.text_area :content, class:'form-control', style:'resize:none;' %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :rating, "Give a rating (1-5)" %>
+    <div class="row">
+      <div class="col-xs-4 col-sm-2 col-md-6" >
+        <%= f.number_field :rating, class:'form-control' %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.submit class:'btn btn-primary' %>
+    <%= link_to("Cancel", reviews_path, class:'btn btn-danger') %>
+  </div>
 <% end %>
-
-<%= link_to("Cancel", reviews_path) %>

@@ -11,33 +11,15 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @items = []
-    current_cart.each do |item_id|
-      @item = Item.find(item_id)
-      if @item.seller == current_user
-        session[:cart].delete(item_id)
-        message = "#{@item.name} is being sold by you and cannot be added to your order."
-        if flash[:danger] == nil
-          flash[:danger] = []
-          flash[:danger] << message
-        else
-          flash[:danger] << message
-        end
-      else
-        @items << @item
-      end
-    end
-    # byebug
+    @items = check_buyer_is_seller
   end
 
   def create
-
-    @order = Order.new()
+    @order = Order.new(order_params)
     @order.buyer_id = current_user.id
     current_cart.each do |item_id|
       @order.items << Item.find(item_id)
     end
-    # byebug
     if @order.items.size < 1
       return flash[:danger] = "Your cart is currently empty."
     end
@@ -71,7 +53,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:buyer_id)
+    params.require(:order).permit(:buyer_id, :street_address, :zip_code, :city, :state)
   end
 
   def set_order
