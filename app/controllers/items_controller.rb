@@ -12,6 +12,7 @@ class ItemsController < ApplicationController
       # @items = current_user.nil? ? Item.unsold : Item.unsold.where.not("seller_id = ?", current_user.id)
       @items = Item.unsold
     end
+    @items = @items.page(params[:page])
   end
 
   # def index
