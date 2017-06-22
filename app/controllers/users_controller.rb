@@ -39,9 +39,12 @@ class UsersController < ApplicationController
     if @user.valid?
       redirect_to user_path(@user)
     else
+      flash.now[:danger] = []
+      @user.errors.full_messages.each do |error|
+        flash.now[:danger] << error
+      end
       render :edit
     end
-    #may want to redirect_to index page instead (where all products are)
   end
 
   private
