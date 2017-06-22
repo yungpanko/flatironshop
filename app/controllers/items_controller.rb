@@ -43,8 +43,9 @@ class ItemsController < ApplicationController
       @item.save
       redirect_to item_path(@item)
     else
+      flash.now[:danger] = []
       @item.errors.full_messages.each do |error|
-        flash.now[error] = error
+        flash.now[:danger] << error
       end
       render :new
     end

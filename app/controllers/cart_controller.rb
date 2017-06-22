@@ -7,7 +7,8 @@ class CartController < ApplicationController
       redirect_to item_path(@item)
     else
       session[:cart] << @item.id
-      redirect_to cart_path
+      flash[:success] = "#{@item.name} added to cart. #{cart_btn}"
+      redirect_to items_path
     end
   end
 
@@ -21,6 +22,10 @@ class CartController < ApplicationController
   def remove
     current_cart.delete(params[:id].to_i)
     redirect_to cart_path
+  end
+
+  def cart_btn
+    view_context.link_to "View Cart", cart_path, class:'btn btn-default'
   end
 
 end
