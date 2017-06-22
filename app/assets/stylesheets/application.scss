@@ -22,3 +22,7 @@
    padding-top: 70px;
    padding-bottom: 30px;
  }
+
+.field_with_errors {
+  @extend .has-error;
+}
