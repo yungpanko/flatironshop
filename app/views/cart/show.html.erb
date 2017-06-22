@@ -43,9 +43,11 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <div class="pull-right">
-      <h3>Total: <%= display_cart_total %></h3>
-      <%= link_to("Checkout", new_order_path, class:'btn btn-primary') if !current_cart.empty? %>
-      <%= link_to("Continue Shopping", items_path, class:'btn btn-primary') if !current_cart.empty? %>
+      <% if !current_cart.empty? %>
+        <h3>Total: <%= display_cart_total %></h3>
+        <%= link_to("Checkout", new_order_path, class:'btn btn-primary')%>
+        <%= link_to("Continue Shopping", items_path, class:'btn btn-primary')%>
+      <% end %>
     </div>
   </div>
 </div>
