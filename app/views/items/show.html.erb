@@ -2,9 +2,9 @@
   <div class="col-sm-6 col-sm-offset-3">
     <div class="thumbnail">
       <% if @item.item_pic? %>
-        <%= link_to image_tag(@item.item_pic_url), item_path(@item) %>
+        <%= image_tag(@item.item_pic_url) %>
       <% else %>
-        <%= link_to image_tag('placeholder.png'), item_path(@item) %>
+        <%= image_tag('placeholder.png') %>
       <% end %>
       <div class="caption">
         <h4 class="pull-right"><%= number_to_currency(@item.price, :precision => 2) %></h4>
@@ -15,8 +15,10 @@
           <%= @item.description %>
         </p>
         <p>
-          Sold By:
-          <%= link_to @item.seller.name, user_path(@item.seller), method: :get %>
+          <strong>Condition:</strong> <%= @item.condition %>
+        </p>
+        <p>
+          <strong>Sold By:</strong> <%= link_to @item.seller.name, user_path(@item.seller), method: :get %>
         </p>
         <div class="clearfix">
           <% if @item.seller_id == current_user.try(:id) %>
