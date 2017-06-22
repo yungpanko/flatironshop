@@ -11,17 +11,15 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    check_buyer_is_seller
+    @items = check_buyer_is_seller
   end
 
   def create
-
-    @order = Order.new()
+    @order = Order.new(order_params)
     @order.buyer_id = current_user.id
     current_cart.each do |item_id|
       @order.items << Item.find(item_id)
     end
-    # byebug
     if @order.items.size < 1
       return flash[:danger] = "Your cart is currently empty."
     end
@@ -55,7 +53,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:buyer_id)
+    params.require(:order).permit(:buyer_id, :street_address, :zip_code, :city, :state)
   end
 
   def set_order

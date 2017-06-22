@@ -1,1 +1,7 @@
 <h1>Thank you for your order!</h1>
+
+<br><br>
+
+<p>Your package will be shipped to:</p>
+<p><%= @order.street_address %></p>
+<p><%= @order.zip_code %> <%= @order.city %>, <%= @order.state %></p>

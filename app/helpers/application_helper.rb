@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def display_cart_total
-    "Total: #{number_to_currency(cart_total, :precision => 2)}" if cart_total
+    "#{number_to_currency(cart_total, :precision => 2)}" if cart_total
 
   end
 

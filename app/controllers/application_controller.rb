@@ -41,9 +41,12 @@ class ApplicationController < ActionController::Base
         message = "#{@item.name} is being sold by you and cannot be added to your order."
         flash[:danger] ||= []
         flash[:danger] << message
+      else
+        @items << @item
       end
       @item.seller == current_user
     end
+    @items
   end
 
 end
