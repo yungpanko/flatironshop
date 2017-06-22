@@ -1,17 +1,20 @@
-<h1>New Order</h1>
-<% @items.each do |item| %>
-  <p>
-    <% if item.item_pic? %>
-      <%= link_to image_tag(item.item_pic_url), item_path(item) %>
-    <% else %>
-      <%= link_to image_tag('placeholder.png'), item_path(item) %>
-    <% end %>
-    <br>
-    <%= item.name %>
-    <%= item.price %>
-  </p>
+<% if !@items.empty? %>
+  <h1>New Order</h1>
+  <% @items.each do |item| %>
+    <p>
+      <% if item.item_pic? %>
+        <%= link_to image_tag(item.item_pic_url), item_path(item) %>
+      <% else %>
+        <%= link_to image_tag('placeholder.png'), item_path(item) %>
+      <% end %>
+      <br>
+      <%= item.name %>
+      <%= item.price %>
+    </p>
+  <% end %>
+  <p><%= display_cart_total %></p>
+  <%= link_to "Complete Order", orders_path, method: :post %>
 <% end %>
-<p><%= display_cart_total %></p>
 <%#= form_for @order do |f| %>
   <%#= f.label :street_address %>
   <%#= f.text_field :street_address %>
@@ -22,4 +25,3 @@
   <%#= f.label :state %>
   <%#= f.text_field :state %>
   <%# end %>
-  <%= link_to "Complete Order", orders_path, method: :post %>
