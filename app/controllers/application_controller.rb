@@ -33,4 +33,17 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
 
+  def check_buyer_is_seller
+    @items = []
+    session[:cart].delete_if do |item_id|
+      @item = Item.find(item_id)
+      if @item.seller == current_user
+        message = "#{@item.name} is being sold by you and cannot be added to your order."
+        flash[:danger] ||= []
+        flash[:danger] << message
+      end
+      @item.seller == current_user
+    end
+  end
+
 end

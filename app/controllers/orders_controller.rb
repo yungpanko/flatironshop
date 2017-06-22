@@ -11,23 +11,7 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @items = []
-    current_cart.each do |item_id|
-      @item = Item.find(item_id)
-      if @item.seller == current_user
-        session[:cart].delete(item_id)
-        message = "#{@item.name} is being sold by you and cannot be added to your order."
-        if flash[:danger] == nil
-          flash[:danger] = []
-          flash[:danger] << message
-        else
-          flash[:danger] << message
-        end
-      else
-        @items << @item
-      end
-    end
-    # byebug
+    check_buyer_is_seller
   end
 
   def create
