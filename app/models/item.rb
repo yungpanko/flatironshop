@@ -23,4 +23,8 @@ class Item < ApplicationRecord
   def self.unsold
     Item.where("order_id IS NULL")
   end
+
+  def self.search_unsold(query)
+    self.unsold.where("name ILIKE ?", '%' + query + '%')
+  end
 end
