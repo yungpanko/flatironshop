@@ -19,7 +19,7 @@ class CartController < ApplicationController
     end
     if @items.empty?
       flash[:info] = "Your cart is currently empty!"
-      redirect_to root_path
+      redirect_to items_path
     end
   end
 
