@@ -17,19 +17,14 @@ class UsersController < ApplicationController
       if @user.save
         session[:user_id] = @user.id
         UserMailer.welcome_email(@user).deliver_now
-        # format.html { redirect_to(@user, notice: 'User was successfully created.') }
-        # format.json { render json: @user, status: :created, location: @user }
         redirect_to items_path
       else
         flash.now[:danger] = []
         @user.errors.full_messages.each do |error|
           flash.now[:danger] << error
         end
-        # format.json { render json: @user.errors, status: :unprocessable_entity }
-        # format.html { render action: 'new' }
         render :new
       end
-    # end
   end
 
   def show
