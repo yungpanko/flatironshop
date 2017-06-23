@@ -7,27 +7,15 @@ class ItemsController < ApplicationController
     if params[:category_id] && params[:seller_id] && params[:seller_id] != "0"
       @items = Item.unsold.where(:category_id => params[:category_id]).where(:seller_id => params[:seller_id])
     elsif params[:category_id]
-      # @items = current_user.nil? ? Item.unsold.where(:category_id => params[:category_id]) : Item.unsold.where(:category_id => params[:category_id]).where.not("seller_id = ?", current_user.id)
       @items = Item.unsold.where(:category_id => params[:category_id])
     elsif params[:seller_id] && params[:seller_id] != "0"
       @items = Item.unsold.where(:seller_id => params[:seller_id])
     else
-      # @items = current_user.nil? ? Item.unsold : Item.unsold.where.not("seller_id = ?", current_user.id)
       @items = Item.unsold.where.not(id:session[:cart])
-      # @items = Item.unsold
     end
     @items = @items.where("name ILIKE ?", '%' + params[:query] + '%') if params[:query]
     @items = @items.page(params[:page])
   end
-
-  # def index
-  #   if current_user == nil
-  #     @items = Item.unsold
-  #   else
-  #     @items = Item.unsold.where.not("seller_id = ?", current_user.id)
-  #   end
-  #
-  # end
 
   def show
   end
