@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thanks for ordering, <%= @user.name %>!</h1>
+    <p>Your package will be soon on its way.</p>
+    <p>This is what you ordered:</p>
+      <ul>
+        <% @order.items.each do |item| %>
+          <li><%= item.name %> from <%= item.seller.name %></li>
+        <% end %>
+      </ul>
+    <p>Thanks again and have an awesome day!</p>
+  </body>
+</html>
