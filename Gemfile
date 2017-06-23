@@ -6,6 +6,8 @@ git_source(:github) do |repo_name|
 end
 
 gem 'kaminari'
+gem "fog-aws"
+
 
 gem 'city-state'
 
