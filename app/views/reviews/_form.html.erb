@@ -7,8 +7,25 @@
 
 <hr>
 
+<div class="col-sm-4 col-lg-4 col-md-4">
+  <div class="thumbnail">
+    <% if item.item_pic? %>
+      <%= link_to image_tag(item.item_pic_url), item_path(item) %>
+    <% else %>
+      <%= link_to image_tag('placeholder.png'), item_path(item) %>
+    <% end %>
+    <div class="caption">
+      <h4 class="pull-right"><%= number_to_currency(item.price, :precision => 2) %></h4>
+      <h4>
+        <%= link_to item.name, item_path(item) %>
+      </h4>
+      <p> <%= item.description %> </p>
+    </div>
+  </div>
+</div>
+
 <%= form_for @review do |f| %>
-  <div class="fomr-group">
+  <div class="form-group">
     <%= f.label :content, "Write a comment" %>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-12" >
