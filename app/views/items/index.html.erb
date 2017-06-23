@@ -22,7 +22,7 @@
     <div class="list-group">
       <%= link_to "All Items", items_path(query:params[:query], seller_id:params[:seller_id]), class:"list-group-item #{'active' if params[:category_id].nil?}" %>
       <% Category.all.order(:name).each do |category| %>
-        <%= category_link(category, params[:seller_id]) %>
+        <%= category_link(category, params) %>
       <% end %>
     </div>
   </div>
