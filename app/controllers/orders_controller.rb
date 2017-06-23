@@ -27,6 +27,7 @@ class OrdersController < ApplicationController
     if @order.valid?
       @order.save
       session[:cart] = []
+      UserMailer.order_email(current_user, @order).deliver_now
       redirect_to order_path(@order)
     else
       flash[:danger] << @order.errors.full_messages.first
