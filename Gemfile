@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'kaminari'
+gem 'fog'
 gem "fog-aws"
 
 
