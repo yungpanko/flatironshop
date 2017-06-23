@@ -4,31 +4,20 @@ class ItemsController < ApplicationController
   before_action :item_creator_or_admin, only: [:edit, :update, :destroy]
 
   def index
-    if params[:query] && !params[:query].empty? && params[:category_id] && !params[:category_id].empty?
-      @items = Item.unsold.where(:category_id => params[:category_id]).where("name ILIKE ?", '%' + params[:query] + '%')
-    elsif params[:query] && !params[:query].empty? && params[:category_id].nil?
-      @items = Item.unsold.where("name ILIKE ?", '%' + params[:query] + '%')
-    elsif params[:category_id] && !params[:category_id].empty?
+    if params[:category_id] && params[:seller_id] && params[:seller_id] != "0"
+      @items = Item.unsold.where(:category_id => params[:category_id]).where(:seller_id => params[:seller_id])
+    elsif params[:category_id]
       # @items = current_user.nil? ? Item.unsold.where(:category_id => params[:category_id]) : Item.unsold.where(:category_id => params[:category_id]).where.not("seller_id = ?", current_user.id)
       @items = Item.unsold.where(:category_id => params[:category_id])
-    elsif params[:seller_id]
+    elsif params[:seller_id] && params[:seller_id] != "0"
       @items = Item.unsold.where(:seller_id => params[:seller_id])
-
-      @items = Item.search_unsold(params[:query])
     else
       # @items = current_user.nil? ? Item.unsold : Item.unsold.where.not("seller_id = ?", current_user.id)
-      @items = []
-      Item.unsold.each do |item|
-        @items << item unless current_cart.include?(item.id)
-      end
-
+      @items = Item.unsold.where.not(id:session[:cart])
       # @items = Item.unsold
     end
-    if @items.class == Array
-      @items = Kaminari.paginate_array(@items).page(params[:page]).per(3)
-    else
-      @items = @items.page(params[:page])
-    end
+    @items = @items.where("name ILIKE ?", '%' + params[:query] + '%') if params[:query]
+    @items = @items.page(params[:page])
   end
 
   # def index

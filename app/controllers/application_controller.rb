@@ -8,6 +8,12 @@ class ApplicationController < ActionController::Base
     session[:cart] ||= []
   end
 
+  def cart_items
+    session[:cart].map do |item_id|
+      Item.find_by(id:item_id)
+    end
+  end
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
