@@ -1,5 +1,18 @@
 <div class="row">
   <div class="col-md-3">
+    <%= form_tag items_path, method:"GET" do %>
+      <%= hidden_field_tag :category_id, params[:category_id] if params[:category_id]%>
+      <div class="form-group">
+        <div class="input-group">
+          <%= text_field_tag :query, params[:query], class:'form-control' %>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+          </span>
+        </div>
+      </div>
+    <% end %>
     <div class="list-group">
       <%= link_to "All Items", items_path, class:"list-group-item #{'active' if params[:category_id].nil?}" %>
       <% Category.all.order(:name).each do |category| %>

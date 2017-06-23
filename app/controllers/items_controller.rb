@@ -4,11 +4,17 @@ class ItemsController < ApplicationController
   before_action :item_creator_or_admin, only: [:edit, :update, :destroy]
 
   def index
-    if params[:category_id]
+    if params[:query] && !params[:query].empty? && params[:category_id] && !params[:category_id].empty?
+      @items = Item.unsold.where(:category_id => params[:category_id]).where("name ILIKE ?", '%' + params[:query] + '%')
+    elsif params[:query] && !params[:query].empty? && params[:category_id].nil?
+      @items = Item.unsold.where("name ILIKE ?", '%' + params[:query] + '%')
+    elsif params[:category_id] && !params[:category_id].empty?
       # @items = current_user.nil? ? Item.unsold.where(:category_id => params[:category_id]) : Item.unsold.where(:category_id => params[:category_id]).where.not("seller_id = ?", current_user.id)
       @items = Item.unsold.where(:category_id => params[:category_id])
     elsif params[:seller_id]
       @items = Item.unsold.where(:seller_id => params[:seller_id])
+
+      @items = Item.search_unsold(params[:query])
     else
       # @items = current_user.nil? ? Item.unsold : Item.unsold.where.not("seller_id = ?", current_user.id)
       @items = []

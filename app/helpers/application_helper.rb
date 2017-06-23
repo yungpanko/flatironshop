@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def category_link(category)
-    link_to category.name.capitalize, items_path(category_id: category.id), class:"list-group-item #{params[:category_id].to_i == category.id ? 'active' : ''}"
+    link_to category.name.capitalize, items_path(category_id: category.id, query: params[:query]), class:"list-group-item #{params[:category_id].to_i == category.id ? 'active' : ''}"
   end
 
 
