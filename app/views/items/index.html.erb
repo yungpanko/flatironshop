@@ -51,7 +51,7 @@
               <h4>
                 <%= link_to item.name, item_path(item) %>
               </h4>
-              <p> <%= item.description %> </p>
+              <p> <%= item.description.truncate(100, separator: ' ') %> </p>
             </div>
           </div>
         </div>
