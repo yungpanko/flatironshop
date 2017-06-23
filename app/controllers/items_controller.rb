@@ -11,8 +11,9 @@ class ItemsController < ApplicationController
     elsif params[:seller_id] && params[:seller_id] != "0"
       @items = Item.unsold.where(:seller_id => params[:seller_id])
     else
-      @items = Item.unsold.where.not(id:session[:cart])
+      @items = Item.unsold
     end
+    @items = @items.where.not(id:session[:cart])
     @items = @items.where("name ILIKE ?", '%' + params[:query] + '%') if params[:query]
     @items = @items.page(params[:page])
   end

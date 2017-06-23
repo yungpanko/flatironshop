@@ -19,11 +19,11 @@ module ApplicationHelper
 
     if !params[:seller_id].nil? && params[:seller_id] != "0"
       link_to items_path(category_id: category.id, seller_id: params[:seller_id], query: params[:query]), class:"list-group-item #{params[:category_id].to_i == category.id ? 'active' : ''}" do
-        "#{category.name.capitalize} #{content_tag :span, items.where(category_id: category, seller_id:params[:seller_id]).count, class:'badge'}".html_safe
+        "#{category.name.capitalize} #{content_tag :span, items.where(category_id: category, seller_id:params[:seller_id]).where.not(id:session[:cart]).count, class:'badge'}".html_safe
       end
     else
       link_to items_path(category_id: category.id, seller_id: params[:seller_id], query: params[:query]), class:"list-group-item #{params[:category_id].to_i == category.id ? 'active' : ''}" do
-        "#{category.name.capitalize} #{content_tag :span, items.where(category_id: category).count, class:'badge'}".html_safe
+        "#{category.name.capitalize} #{content_tag :span, items.where(category_id: category).where.not(id:session[:cart]).count, class:'badge'}".html_safe
       end
     end
   end
