@@ -17,6 +17,10 @@ class CartController < ApplicationController
     current_cart.each do |item_id|
       @items << Item.find(item_id)
     end
+    if @items.empty?
+      flash[:info] = "Your cart is currently empty!"
+      redirect_to root_path
+    end
   end
 
   def remove
