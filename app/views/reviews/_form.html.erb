@@ -1,28 +1,18 @@
-
-<h3> <%= @item.name %> </h3>
-<%= image_tag(@item.item_pic_url) if @item.item_pic? %>
-<p> <%= @item.description %> </p>
-<p> <%= @item.price %> </p>
-<p> Sold By: <%= link_to @item.seller.name, user_path(@item.seller) %> </p>
-
-<hr>
-
-<div class="col-sm-4 col-lg-4 col-md-4">
-  <div class="thumbnail">
-    <% if item.item_pic? %>
-      <%= link_to image_tag(item.item_pic_url), item_path(item) %>
-    <% else %>
-      <%= link_to image_tag('placeholder.png'), item_path(item) %>
-    <% end %>
-    <div class="caption">
-      <h4 class="pull-right"><%= number_to_currency(item.price, :precision => 2) %></h4>
-      <h4>
-        <%= link_to item.name, item_path(item) %>
-      </h4>
-      <p> <%= item.description %> </p>
-    </div>
+<div class="thumbnail">
+  <% if @item.item_pic? %>
+    <%= link_to image_tag(@item.item_pic_url), item_path(@item) %>
+  <% else %>
+    <%= link_to image_tag('placeholder.png'), item_path(@item) %>
+  <% end %>
+  <div class="caption">
+    <h4 class="pull-right"><%= number_to_currency(@item.price, :precision => 2) %></h4>
+    <h4>
+      <%= link_to @item.name, item_path(@item) %>
+    </h4>
+    <p> Sold By: <%= link_to @item.seller.name, user_path(@item.seller) %> </p>
   </div>
 </div>
+
 
 <%= form_for @review do |f| %>
   <div class="form-group">
