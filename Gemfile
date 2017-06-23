@@ -12,6 +12,8 @@ gem "fog-aws"
 
 gem 'city-state'
 
+gem 'sendgrid-ruby'
+
 gem 'carrierwave', '~> 1.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
